@@ -1,1 +1,0 @@
-%{"conform": {:git, "https://github.com/jwarwick/conform.git", "96b0fa21edac5d2ecce18c91f809c8fc85780bd8", [branch: "v0.14"]}}
