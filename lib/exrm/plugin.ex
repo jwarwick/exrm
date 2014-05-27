@@ -68,7 +68,7 @@ defmodule ReleaseManager.Plugin do
   @spec load_plugins([binary]) :: [] | [atom]
   def load_plugins(paths) do
     Enum.reduce(paths, [], fn(path, matches) ->
-      {:ok, files} = :erl_prim_loader.list_dir(path |> String.to_char_list)
+      {:ok, files} = :erl_prim_loader.list_dir(path)
       Enum.reduce(files, matches, &match_plugins/2)
     end)
   end
@@ -78,7 +78,7 @@ defmodule ReleaseManager.Plugin do
   @spec match_plugins(char_list, [atom]) :: [atom]
   defp match_plugins(filename, modules) do
     if :re.run(filename, @re_pattern, [capture: :none]) == :match do
-      mod = :filename.rootname(filename, '.beam') |> list_to_atom
+      mod = :filename.rootname(filename, '.beam') |> List.to_atom
       if Code.ensure_loaded?(mod), do: [mod | modules], else: modules
     else
       modules
